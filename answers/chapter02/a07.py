@@ -1,12 +1,15 @@
+import itertools
+
 D = int(input())
 N = int(input())
 
-ruiseki = [0 for i in range(D+1)]
-for i in range(N):
+zougen = [0 for i in range(D + 2)]
+for _ in range(N):
     L, R = map(int, input().split())
-    for j in range(L, R+1):
-        ruiseki[j] += 1
+    zougen[L] += 1
+    zougen[R + 1] -= 1
 
-for i in range(1, D+1):
-    print(ruiseki[i])
+attendance_cnt = list(itertools.accumulate(zougen))
 
+for cnt in attendance_cnt[1:-1]:
+    print(cnt)
