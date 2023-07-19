@@ -1,5 +1,3 @@
-import sys
-
 N = int(input())
 max_index = 1501
 counts = [[0 for _ in range(max_index)] for _ in range(max_index)]
