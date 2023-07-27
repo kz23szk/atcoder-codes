@@ -6,6 +6,7 @@ dp[0][0] = 0
 for i in range(1, N + 1):
     for j in range(W + 1):
         weight, value = wv[i]
+        # TODO: ここの考え方が図の説明とあっていない気がする
         # ここは重さが足りないのでそのままスライド
         if j < weight:
             dp[i][j] = dp[i - 1][j]
