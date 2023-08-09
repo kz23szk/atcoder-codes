@@ -1,11 +1,13 @@
 N, K = map(int, input().split())
-students = [tuple(map(int, input().split())) for _ in range(N)]
+A, B = [0 for _ in range(N)], [0 for _ in range(N)]
+for i in range(N):
+    A[i], B[i] = map(int, input().split())
 
-team_num_list = []
-for a in range(1,101):
-    for b in range(1, 101):
-        team_num = len([1 for i in range(N) if a <= students[i][0] <= a + K and b <= students[i][1] <= b + K])
-        team_num_list.append(team_num)
+max_team_num = 0
+for i in range(1, 101):
+    for j in range(1, 101):
+        # 下限を体力i,気力jとしたときに iからi+K、jからj+Kを満たす人数を数える
+        count = len([1 for k in range(N) if i <= A[k] <= i + K and j <= B[k] <= j + K])
+        max_team_num = count if max_team_num < count else max_team_num
 
-print(max(team_num_list))
-
+print(max_team_num)

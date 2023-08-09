@@ -1,25 +1,24 @@
 N = int(input())
-A = list(map(int, input().split()))
-line_dict = dict()
+A = list(map(int,input().split()))
+
+d = dict()
+# 同じ長さの棒の数を数える
 for a in A:
-    if a not in line_dict:
-        line_dict[a] = 1
+    if a not in d:
+        d[a] = 1
     else:
-        line_dict[a] += 1
+        d[a] += 1
 
+def factorial(n):
+    val = 1
+    for i in range(2, n+1):
+        val *= i
+    return val
 
-# n個からm個選ぶ組み合わせ方を返す
-def combination(n, m):
-    result = 1
-    for i in range(m):
-        result *= n - i
-    for i in range(2, m + 1):
-        result /= i
-    return int(result)
+total = 0
+# 同じ長さが3本以上あればその組み合わせ数を加算していく
+for count in d.values():
+    if count >=3:
+        total += int(factorial(count) / (factorial(3) * factorial(count - 3)))
 
-
-pattern_count = 0
-for line_count in line_dict.values():
-    if line_count >= 3:
-        pattern_count += combination(line_count, 3)
-print(pattern_count)
+print(total)

@@ -1,14 +1,13 @@
 N = int(input())
-movies = [ tuple(map(int, input().split())) for _ in range(N)]
-# 終了時刻、開始時刻で並び替え
-movies.sort(key=lambda x: (x[1], x[0]))
-
+movies = [tuple(map(int, input().split())) for _ in range(N)]
+# 終わるのが早い順にソートする
+movies.sort(key=lambda x: x[1])
 current_time = 0
-watch_count = 0
-for movie in movies:
-    start, end = movie
+count = 0
+for start, end in movies:
+    # 始まる前なら鑑賞できて、終了時間まで経過させる
     if current_time <= start:
+        count += 1
         current_time = end
-        watch_count += 1
 
-print(watch_count)
+print(count)
