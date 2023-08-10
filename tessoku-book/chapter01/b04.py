@@ -1,9 +1,8 @@
-N = [int(c) for c in input()]
-N.reverse()
+N = list(map(int, list(input())))
+num = 0
 
-val = 0
-for i, n in enumerate(N):
-    if n == 1:
-        val += 2 ** i
+for i, digit in enumerate(N[::-1]):
+    if digit == 1:
+        num += 2 ** i
 
-print(val)
+print(num)

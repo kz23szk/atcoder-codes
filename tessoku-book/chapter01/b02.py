@@ -1,11 +1,11 @@
+import sys
+
 A, B = map(int, input().split())
+# 100の約数
+divisor100 = [i for i in range(1, 101) if 100 % i == 0]
 
-flag = False
-for n in range(A, B + 1):
-    if 100 % n == 0:
-        flag = True
-
-if flag:
-    print("Yes")
-else:
-    print("No")
+for d in divisor100:
+    if A <= d <= B:
+        print("Yes")
+        sys.exit(0)
+print("No")
