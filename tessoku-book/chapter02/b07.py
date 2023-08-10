@@ -1,17 +1,13 @@
-import itertools
-
-T = int(input())  # 閉店時間
-N = int(input())  # 従業員数
-
-zougen = [0] * (T + 1)  # 人の入りと出
-
-for i in range(N):
+T = int(input())
+N = int(input())
+c_sum = [0 for _ in range(T + 1)]
+for _ in range(N):
     L, R = map(int, input().split())
-    zougen[L] += 1
-    zougen[R] -= 1
+    c_sum[L] += 1
+    c_sum[R] -= 1
 
-# i時にいる人数
-ruiseki = list(itertools.accumulate(zougen))
+for i in range(1, T + 1):
+    c_sum[i] += c_sum[i - 1]
 
-for cnt in ruiseki[:-1]:
-    print(cnt)
+for i in range(T):
+    print(c_sum[i])

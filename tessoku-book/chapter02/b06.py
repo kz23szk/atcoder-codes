@@ -1,24 +1,22 @@
 N = int(input())
-A = list(map(int, input().split()))
-Q = int(input())
+A = [0] + list(map(int, input().split()))
+c_sum_win, c_sum_lose = [0 for _ in range(N + 1)], [0 for _ in range(N + 1)]
 
-Atotalwin = [0]
-Atotallose = [0]
-for a in A:
-    if a == 1:
-        Atotalwin.append(Atotalwin[-1] + 1)
-        Atotallose.append(Atotallose[-1])
+for i in range(1, N + 1):
+    c_sum_win[i] += c_sum_win[i - 1]
+    c_sum_lose[i] += c_sum_lose[i - 1]
+    if A[i] == 1:
+        c_sum_win[i] += 1
     else:
-        Atotalwin.append(Atotalwin[-1])
-        Atotallose.append(Atotallose[-1] + 1)
+        c_sum_lose[i] += 1
 
-for n in range(Q):
+Q = int(input())
+for _ in range(Q):
     L, R = map(int, input().split())
-    wincnt = Atotalwin[R] - Atotalwin[L - 1]
-    losecnt = Atotallose[R] - Atotallose[L - 1]
-    if wincnt > losecnt:
+    win_count, lose_count = c_sum_win[R] - c_sum_win[L - 1], c_sum_lose[R] - c_sum_lose[L - 1]
+    if win_count > lose_count:
         print("win")
-    elif wincnt == losecnt:
+    elif win_count == lose_count:
         print("draw")
     else:
         print("lose")

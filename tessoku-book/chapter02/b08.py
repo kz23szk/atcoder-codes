@@ -1,22 +1,21 @@
 N = int(input())
 max_index = 1501
-counts = [[0 for _ in range(max_index)] for _ in range(max_index)]
-
+c_sum = [[0 for _ in range(max_index)] for _ in range(max_index)]
 for _ in range(N):
     x, y = map(int, input().split())
-    counts[x][y] += 1
+    c_sum[y][x] += 1
 
-# 横方向の累積和を取る
-for h in range(1, max_index):
-    for w in range(1, max_index):
-        counts[h][w] += counts[h][w - 1]
+# x方向の累積和を取る
+for y in range(1, max_index):
+    for x in range(1, max_index):
+        c_sum[y][x] += c_sum[y][x - 1]
 
-# 縦方向の累積和を取る
-for w in range(max_index):
-    for h in range(1, max_index):
-        counts[h][w] += counts[h - 1][w]
+# y方向の累積和を取る
+for x in range(1, max_index):
+    for y in range(1, max_index):
+        c_sum[y][x] += c_sum[y - 1][x]
 
 Q = int(input())
 for _ in range(Q):
-    a, b, c, d = map(int, input().split())
-    print(counts[c][d] - counts[c][b - 1] - counts[a - 1][d] + counts[a - 1][b - 1])
+    x1, y1, x2, y2 = map(int, input().split())
+    print(c_sum[y2][x2] - c_sum[y2][x1 - 1] - c_sum[y1 - 1][x2] + c_sum[y1 - 1][x1 - 1])
