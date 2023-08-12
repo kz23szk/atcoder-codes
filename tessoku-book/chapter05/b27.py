@@ -1,13 +1,8 @@
-import sys
-
-sys.setrecursionlimit(10 ** 6)
 A, B = map(int, input().split())
+# 最小公約数をみつける
+a, b = A, B
+while a % b != 0:
+    a, b = b, a % b
+gcm = b
 
-
-def gcd(a, b):
-    if b == 0:
-        return a
-    return gcd(b, a % b)
-
-
-print(A * B // gcd(A, B))
+print((A // gcm) * (B // gcm) * gcm)
