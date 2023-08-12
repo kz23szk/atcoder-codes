@@ -1,27 +1,20 @@
-import math
-
 N = int(input())
-h = list(map(int, input().split()))
-dp = [math.inf for _ in h]
-dp[0] = 0
-dp[1] = abs(h[1] - h[0])
+H = [0] + list(map(int, input().split()))
+dp = [0 for _ in range(N + 1)]
+dp[2] = abs(H[1] - H[2])
+for i in range(3, N + 1):
+    dp[i] = min(dp[i - 1] + abs(H[i] - H[i - 1]), dp[i - 2] + abs(H[i] - H[i - 2]))
 
-for i in range(2, len(h)):
-    root1 = abs(h[i] - h[i - 1]) + dp[i - 1]
-    root2 = abs(h[i] - h[i - 2]) + dp[i - 2]
-    dp[i] = min(root1, root2)
-
+path = [N]
+i = N
 # 経路の復元
-path = []
-index = len(h) - 1
-while index >= 1:
-    path.append(index + 1)
-    if dp[index] == dp[index - 1] + abs(h[index] - h[index - 1]):
-        index -= 1
+while i > 1:
+    if dp[i] - dp[i - 2] == abs(H[i - 2] - H[i]):
+        i -= 2
     else:
-        index -= 2
+        i -= 1
+    path.append(i)
+path.reverse()
 
-path.append(1)
-path.sort()
 print(len(path))
 print(*path)
