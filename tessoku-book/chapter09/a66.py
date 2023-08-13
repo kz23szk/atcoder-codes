@@ -1,10 +1,9 @@
 N, Q = map(int, input().split())
-queries = [list(map(int, input().split())) for _ in range(Q)]
+queries = [tuple(map(int, input().split())) for _ in range(Q)]
 
 par, siz = [-1 for _ in range(N + 1)], [1 for _ in range(N + 1)]
 
 
-# xの根を返す
 def root(x):
     while par[x] != -1:
         x = par[x]
@@ -15,10 +14,12 @@ def same(u, v):
     return root(u) == root(v)
 
 
-def unite(u, v):
+def union(u, v):
     root_u, root_v = root(u), root(v)
+    # 同じグループなら何もしない
     if root_u == root_v:
         return
+
     if siz[root_u] > siz[root_v]:
         par[root_v] = root_u
         siz[root_u] += siz[root_v]
@@ -29,6 +30,6 @@ def unite(u, v):
 
 for q, u, v in queries:
     if q == 1:
-        unite(u, v)
-    elif q == 2:
+        union(u, v)
+    else:
         print("Yes") if same(u, v) else print("No")
