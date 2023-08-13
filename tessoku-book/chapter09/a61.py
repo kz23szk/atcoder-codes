@@ -1,12 +1,12 @@
 N, M = map(int, input().split())
-rinsetu = [set()] + [set() for i in range(N)]
+ad_list = [set() for _ in range(N + 1)]
+for _ in range(M):
+    a, b = map(int, input().split())
+    ad_list[a].add(b)
+    ad_list[b].add(a)
 
-for i in range(M):
-    A, B = map(int, input().split())
-    rinsetu[A].add(B)
-    rinsetu[B].add(A)
-
-for i, r in enumerate(rinsetu[1:]):
-    r_list = list(r)
-    r_list.sort()
-    print(str(i + 1) + ": {", ", ".join([str(i) for i in r_list]), "}", sep="")
+for i in range(1, N + 1):
+    if len(ad_list[i]) == 0:
+        print(f"{i}: {{}}")
+    else:
+        print(f"{i}: {ad_list[i]}")
