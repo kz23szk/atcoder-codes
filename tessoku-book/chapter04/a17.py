@@ -1,31 +1,25 @@
-import math
-
 N = int(input())
 A = [0, 0] + list(map(int, input().split()))
 B = [0, 0, 0] + list(map(int, input().split()))
 
-min_times = [math.inf for i in range(N + 1)]
-prev_path = [-1 for i in range(N + 1)]
-min_times[1] = 0
-min_times[2] = A[2]
-prev_path[1] = 0
-prev_path[2] = 1
+INF = 10 ** 9
+dp = [INF for i in range(N + 1)]
+dp[0] = 0
+dp[1] = 0
+dp[2] = A[2]
 for i in range(3, N + 1):
-    rootA_time = A[i] + min_times[i - 1]
-    rootB_time = B[i] + min_times[i - 2]
-    if rootA_time <= rootB_time:
-        min_times[i] = rootA_time
-        prev_path[i] = i - 1
+    dp[i] = min(dp[i - 1] + A[i], dp[i - 2] + B[i])
+
+# 復元
+path = [N]
+i = N
+while i > 1:
+    if dp[i] - dp[i - 1] == A[i]:
+        i -= 1
     else:
-        min_times[i] = rootB_time
-        prev_path[i] = i - 2
+        i -= 2
+    path.append(i)
 
-path = []
-index = N
-while index > 0:
-    path.append(index)
-    index = prev_path[index]
-
-print(len(path))
 path.reverse()
+print(len(path))
 print(*path)
