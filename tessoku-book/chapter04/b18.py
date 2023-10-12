@@ -1,33 +1,27 @@
-import sys
-
 N, S = map(int, input().split())
-A = [0] + list(map(int, input().split()))
+A = list(map(int, input().split()))
 
-dp = [[False for _ in range(S + 1)] for _ in range(N + 1)]
-dp[0][0] = True
+dp = [False for i in range(S+1)]
+dp[0] = True
+for a in A:
+    for i in range(S+1)[::-1]:
+        if i - a >= 0:
+            dp[i] = dp[i] or dp[i-a]
 
-for i in range(1, N + 1):
-    for j in range(S + 1):
-        if j - A[i] < 0:
-            dp[i][j] = dp[i - 1][j]
-        else:
-            dp[i][j] = dp[i - 1][j] or dp[i - 1][j - A[i]]
+print(*dp)
 
-if dp[-1][-1] == False:
-    print("-1")
-    sys.exit(0)
+if not dp[-1]:
+    print(-1)
+else:
+    comb = []
+    card_i = N - 1
+    dp_i = S
+    while card_i > 0 or dp_i >0:
+        if dp[dp_i - A[card_i]]:
+            comb.append(card_i+1)
+            dp_i -= A[card_i]
+        card_i -= 1
 
-# 復元
-cards = []
-i = N
-j = S
-while i > 0:
-    # i番目を選んだ
-    if dp[i - 1][j] == False:
-        j -= A[i]
-        cards.append(i)
-    i -= 1
-
-cards.reverse()
-print(len(cards))
-print(*cards)
+    comb.reverse()
+    print(len(comb))
+    print(*comb)

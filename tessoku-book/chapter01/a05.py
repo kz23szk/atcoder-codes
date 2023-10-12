@@ -1,9 +1,9 @@
 N, K = map(int, input().split())
 
-count = 0
-for i in range(1, N + 1):
-    for j in range(1, N + 1):
-        if 1 <= K - (i + j) <= N:
-            count += 1
+cnt = 0
+for red in range(1, N+1):
+    for blue in range(1, N+1):
+        if N + 1 > K - red - blue > 0:
+            cnt += 1
 
-print(count)
+print(cnt)

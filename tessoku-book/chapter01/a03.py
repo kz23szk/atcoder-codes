@@ -1,12 +1,12 @@
 import sys
 
-n, k = map(int, input().split())
-ps = list(map(int, input().split()))
-qs = list(map(int, input().split()))
+N, K = map(int, input().split())
+P = list(map(int, input().split()))
+Q = list(map(int, input().split()))
 
-for p in ps:
-    for q in qs:
-        if p + q == k:
+for p in P:
+    for q in Q:
+        if p + q == K:
             print("Yes")
             sys.exit(0)
 print("No")

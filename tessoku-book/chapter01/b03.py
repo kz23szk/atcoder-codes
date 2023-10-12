@@ -1,11 +1,12 @@
 import sys
+import itertools
 
 N = int(input())
 A = list(map(int, input().split()))
-for i in range(N):
-    for j in range(i + 1, N):
-        for k in range(j + 1, N):
-            if A[i] + A[j] + A[k] == 1000:
-                print("Yes")
-                sys.exit(0)
+
+for c in itertools.combinations(A, 3):
+    if sum(c) == 1000:
+        print("Yes")
+        sys.exit(0)
 print("No")
+

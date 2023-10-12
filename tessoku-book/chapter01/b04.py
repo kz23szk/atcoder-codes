@@ -1,8 +1,8 @@
-N = list(map(int, list(input())))
+N = input()
+N = reversed(N)
 num = 0
-
-for i, digit in enumerate(N[::-1]):
-    if digit == 1:
+for i, n in enumerate(N):
+    if int(n) == 1:
         num += 2 ** i
 
 print(num)
